@@ -8,4 +8,5 @@ class Decomp
 
     private:
     static int correct_number(const std::string &nrStr);
+    static std::string add_to_string(std::string &s_res, int nom, int denom = 1);
 };
