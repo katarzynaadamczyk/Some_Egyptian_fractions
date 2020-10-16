@@ -18,6 +18,10 @@ string Decomp::decompose(const string &nrStr, const string &drStr)
         add_to_string(ret_val, 1, nom / denom);
         nom = nom % denom;
     }
+    if (nom > 1)
+    {
+        shorten_fraction(denom, nom);
+    }
 
     int k = 2;
     while (nom > 1)
@@ -74,7 +78,7 @@ string Decomp::add_to_string(string &s_res, int denom, int nom)
 
 void Decomp::shorten_fraction(int & denom, int & nom)
 {
-    for (int k = 2, n = sqrt(nom); k < n; k++)
+    for (int k = 2, n = nom; k < n; k++)
     {
         while (nom % k == 0 && denom % k == 0)
         {
