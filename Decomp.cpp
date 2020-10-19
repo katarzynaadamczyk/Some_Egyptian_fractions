@@ -7,7 +7,7 @@ using namespace std;
 
 string Decomp::decompose(const string &nrStr, const string &drStr)
 {
-    int nom {correct_number(nrStr)}, denom {correct_number(drStr)};
+    unsigned long long nom {correct_number(nrStr)}, denom {correct_number(drStr)};
     if (nom == 0 || denom == 0)
     {
         return "[]";
@@ -23,10 +23,10 @@ string Decomp::decompose(const string &nrStr, const string &drStr)
         shorten_fraction(denom, nom);
     }
 
-    int k = 2;
+    unsigned long long k = 2;
     while (nom > 1)
     {
-        for (int i = k; ; i++)
+        for (unsigned long long i = k; ; i++)
         {
             if (nom * i > denom)
             {
@@ -48,21 +48,21 @@ string Decomp::decompose(const string &nrStr, const string &drStr)
     return ret_val;
 }
 
-int Decomp::correct_number(const string &nrStr)
+unsigned long long Decomp::correct_number(const string &nrStr)
 {
-    int ret_value = 0;
+    unsigned long long ret_value = 0;
     for (size_t i = 0, n = nrStr.size(); i < n; i++)
     {
         if (!isdigit(nrStr[i]))
         {
             return 0;
         }
-        ret_value += static_cast<int>(nrStr[i] - '0') * pow(10, n - i - 1);
+        ret_value += static_cast<unsigned long long>(nrStr[i] - '0') * pow(10, n - i - 1);
     }
     return ret_value;
 }
 
-string Decomp::add_to_string(string &s_res, int denom, int nom)
+string Decomp::add_to_string(string &s_res, unsigned long long denom, unsigned long long nom)
 {
     if (s_res.size() > 1)
     {
@@ -76,9 +76,9 @@ string Decomp::add_to_string(string &s_res, int denom, int nom)
     return s_res;
 }
 
-void Decomp::shorten_fraction(int & denom, int & nom)
+void Decomp::shorten_fraction(unsigned long long & denom, unsigned long long & nom)
 {
-    for (int k = 2, n = nom; k < n; k++)
+    for (unsigned long long k = 2, n = sqrt(nom); k < n; k++)
     {
         while (nom % k == 0 && denom % k == 0)
         {
@@ -93,7 +93,7 @@ void Decomp::shorten_fraction(int & denom, int & nom)
     }
 }
 
-void Decomp::substract_fraction(int & denom1, int & nom1, int denom2, int nom2)
+void Decomp::substract_fraction(unsigned long long & denom1, unsigned long long & nom1, unsigned long long denom2, unsigned long long nom2)
 {
     nom1 = nom1 * denom2 - nom2 * denom1;
     denom1 *= denom2;
